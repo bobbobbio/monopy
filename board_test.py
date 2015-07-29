@@ -3,6 +3,7 @@ import unittest
 
 import monop_testing
 import board
+import game
 
 class MonopolyBoardPropertyTileTest(monop_testing.MonopolyTestCase):
     def setUp(self):
@@ -120,7 +121,7 @@ class MonopolyBoardRRTileTest(monop_testing.MonopolyTestCase):
             self.assertEqual(tile.rent, 200)
 
     def test_place_house(self):
-        with self.assertRaises(board.MonopolyUsageError):
+        with self.assertRaises(game.MonopolyUsageError):
             self.tile1.place_house(self.inout, self.player)
 
 class MonopolyBoardUtilityTileTest(monop_testing.MonopolyTestCase):
@@ -152,7 +153,7 @@ class MonopolyBoardUtilityTileTest(monop_testing.MonopolyTestCase):
             self.assertEqual(tile.rent, 10 * self.board.last_roll)
 
     def test_place_house(self):
-        with self.assertRaises(board.MonopolyUsageError):
+        with self.assertRaises(game.MonopolyUsageError):
             self.tile1.place_house(self.inout, self.player)
 
 # XXX: Test the rest of the tiles

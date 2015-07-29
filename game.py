@@ -4,6 +4,9 @@ import board
 import player
 import util
 
+class MonopolyUsageError(Exception):
+    pass
+
 def maybe_quit(inout):
     if inout.ask_yn_question('Do you all really want to quit? '):
         sys.exit(0)

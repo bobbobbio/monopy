@@ -29,6 +29,18 @@ def create_test_monopoly_board():
 
     return b
 
+class MonopolyTestPlayer(player.MonopolyPlayer):
+    def __init__(self, name, game):
+        super(MonopolyTestPlayer, self).__init__(name, game)
+        self.ran_out_of_money = False
+        self.couldnt_pay = 0
+
+    def out_of_money(self, inout):
+        self.ran_out_of_money = True
+        assert self.money < 0
+        self.couldnt_pay += -1 * self.money
+        self.money = 0
+
 class MonopolyTestCase(unittest.TestCase):
     def setUp(self):
         self.inout = TestInputOutput()
@@ -36,5 +48,5 @@ class MonopolyTestCase(unittest.TestCase):
         self.game = MonopolyGame(self.board)
         for i in range(5):
             self.game.add_player(
-                player.MonopolyPlayer('tester%d' % i, self.game))
+                MonopolyTestPlayer('tester%d' % i, self.game))
         self.player = self.game.players[0]

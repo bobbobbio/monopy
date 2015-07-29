@@ -1,10 +1,8 @@
 import json
 import random
 
+import game
 import cards
-
-class MonopolyUsageError(Exception):
-    pass
 
 # Abstract class that represents a tile on the Monopoly board
 class MonopolyBoardTile(object):
@@ -180,7 +178,7 @@ class MonopolyBoardRRTile(MonopolyBoardPropertyTile):
         return 25 << (num_owned - 1)
 
     def place_house(self, inout, player):
-        raise MonopolyUsageError("Can't place a house on a rail road")
+        raise game.MonopolyUsageError("Can't place a house on a rail road")
 
 class MonopolyBoardUtilityTile(MonopolyBoardPropertyTile):
     def __init__(self, board, name, cost):
@@ -205,7 +203,7 @@ class MonopolyBoardUtilityTile(MonopolyBoardPropertyTile):
                 .format(self.board.last_roll, self.rent))
 
     def place_house(self, inout, player):
-        raise MonopolyUsageError("Can't place a house on a utility")
+        raise game.MonopolyUsageError("Can't place a house on a utility")
 
 class MonopolyBoardSafeTile(MonopolyBoardTile):
     def activate(self, inout, _player, _game):
@@ -219,10 +217,10 @@ class MonopolyBoardCardTile(MonopolyBoardTile):
         super(MonopolyBoardCardTile, self).__init__(board, name)
         self.deck = None
 
-    def activate(self, inout, player, game):
+    def activate(self, inout, player, _game):
         # XXX: Remove the card from the deck when drawn?
         card = random.choice(self.deck)
-        card.activate(inout, player, game)
+        card.activate(inout, player, _game)
 
 class MonopolyBoardCCTile(MonopolyBoardCardTile):
     def __init__(self, board, name):
@@ -240,8 +238,8 @@ class MonopolyBoardLuxTaxTile(MonopolyBoardTile):
     pass
 
 class MonopolyBoardGotoJailTile(MonopolyBoardTile):
-    def activate(self, inout, player, game):
-        game.board.advance_player_to(inout, player, game.board.jail_tile)
+    def activate(self, inout, player, _game):
+        _game.board.advance_player_to(inout, player, _game.board.jail_tile)
 
 class MonopolyBoardJailTile(MonopolyBoardTile):
     def __init__(self, board, name):

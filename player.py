@@ -1,7 +1,8 @@
 import board
+import game
 
 class MonopolyPlayer(object):
-    def __init__(self, name, game):
+    def __init__(self, name, _game):
         self.name = name
         self.money = 1500
         self.num = 0
@@ -10,7 +11,7 @@ class MonopolyPlayer(object):
         self.jail_cards = 0
         self.holdings = []
 
-        self.game = game
+        self.game = _game
 
         self.turns_in_jail = 0
 
@@ -95,8 +96,10 @@ class MonopolyPlayer(object):
         self.money += amount
 
     def use_jail_card(self):
-        assert self.jail_cards
-        assert self.in_jail
+        if not self.jail_cards:
+            raise game.MonopolyUsageError("Player doesn't have jail card")
+        if not self.in_jail:
+            raise game.MonopolyUsageError("Player isn't in jail")
 
         self.jail_cards -= 1
         self.jailbreak_success()

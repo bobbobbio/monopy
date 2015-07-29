@@ -35,9 +35,15 @@ class MonopolyPlayer(object):
         self.holdings.append(prop)
 
     def jail(self):
+        if self.in_jail:
+            raise game.MonopolyUsageError("Player is already in jail")
+
         self.turns_in_jail = 1
 
     def jailbreak_failure(self, inout):
+        if not self.in_jail:
+            raise game.MonopolyUsageError("Player isn't in jail")
+
         self.turns_in_jail += 1
 
         if self.turns_in_jail > 3:
@@ -48,6 +54,9 @@ class MonopolyPlayer(object):
             self.turns_in_jail = 0
 
     def jailbreak_success(self):
+        if not self.in_jail:
+            raise game.MonopolyUsageError("Player isn't in jail")
+
         self.turns_in_jail = 0
 
     @property
@@ -105,20 +114,29 @@ class MonopolyPlayer(object):
         self.jailbreak_success()
 
     def pay_for_jail(self, inout):
-        assert self.in_jail
+        if not self.in_jail:
+            raise game.MonopolyUsageError("Player isn't in jail")
 
         # Price for jail is $50
         self.pay(inout, 50)
         self.jailbreak_success()
 
     def resign_to(self, other_player):
-        assert self != other_player
+        if self == other_player:
+            raise game.MonopolyUsageError("Player can't resign to himself")
 
-        self.award(other_player.money)
-        for holding in other_player.holdings:
-            holding.owner = self
-            self.holdings.append(holding)
-            self.jail_cards += other_player.jail_cards
+        # XXX: what to do when resigning when in debt?
+        assert self.money >= 0
+
+        other_player.award(self.money)
+        self.money = 0
+        for holding in self.holdings:
+            holding.owner = other_player
+            other_player.add_to_holdings(holding)
+        self.holdings = []
+
+        other_player.jail_cards += self.jail_cards
+        self.jail_cards = 0
 
         self.game.player_resign(self)
 

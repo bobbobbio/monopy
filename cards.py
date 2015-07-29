@@ -119,7 +119,7 @@ def create_card(action, message):
             board.MonopolyBoardRRTile, message)
     elif action.startswith('MU'):
         return MonopolyAdvanceToTileTypeCard(
-            board.MonopolyBoardUtiltyTile, message)
+            board.MonopolyBoardUtilityTile, message)
     elif action.startswith('MB'):
         return MonopolyMoveBackCard(int(action[2:]), message)
     elif action.startswith('TX'):

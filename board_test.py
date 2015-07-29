@@ -96,27 +96,66 @@ class MonopolyBoardPropertyTileTest(monop_testing.MonopolyTestCase):
 class MonopolyBoardRRTileTest(monop_testing.MonopolyTestCase):
     def setUp(self):
         super(MonopolyBoardRRTileTest, self).setUp()
-        self.rrtile1 = board.MonopolyBoardRRTile(self.board, 'Test RR 1', 100)
-        self.rrtile2 = board.MonopolyBoardRRTile(self.board, 'Test RR 2', 100)
-        self.rrtile3 = board.MonopolyBoardRRTile(self.board, 'Test RR 3', 100)
-        self.rrtile4 = board.MonopolyBoardRRTile(self.board, 'Test RR 4', 100)
-        self.rrtiles = [self.rrtile1, self.rrtile2, self.rrtile3, self.rrtile4]
+        self.tile1 = board.MonopolyBoardRRTile(self.board, 'Test RR 1', 100)
+        self.tile2 = board.MonopolyBoardRRTile(self.board, 'Test RR 2', 100)
+        self.tile3 = board.MonopolyBoardRRTile(self.board, 'Test RR 3', 100)
+        self.tile4 = board.MonopolyBoardRRTile(self.board, 'Test RR 4', 100)
+        self.tiles = [self.tile1, self.tile2, self.tile3, self.tile4]
 
-        for tile in self.rrtiles:
+        for tile in self.tiles:
             self.board.tiles.append(tile)
 
-    def test_rent(self):
-        self.rrtile1.purchase(self.inout, self.player)
+    def test_rent_one(self):
+        self.tile1.purchase(self.inout, self.player)
 
-        self.assertEqual(self.rrtile1.rent, 25)
+        # Rent is only 25 when you own one
+        self.assertEqual(self.tile1.rent, 25)
 
-        for tile in self.rrtiles[1:]:
+    def test_rent_all(self):
+        for tile in self.tiles:
             tile.purchase(self.inout, self.player)
 
-        for tile in self.rrtiles:
+        # Rent is 200 when you own all four
+        for tile in self.tiles:
             self.assertEqual(tile.rent, 200)
 
-    # XXX: Test the rest of the tiles
+    def test_place_house(self):
+        with self.assertRaises(board.MonopolyUsageError):
+            self.tile1.place_house(self.inout, self.player)
+
+class MonopolyBoardUtilityTileTest(monop_testing.MonopolyTestCase):
+    def setUp(self):
+        super(MonopolyBoardUtilityTileTest, self).setUp()
+        self.tile1 = board.MonopolyBoardUtilityTile(
+            self.board, 'Test Utility 1', 100)
+        self.tile2 = board.MonopolyBoardUtilityTile(
+            self.board, 'Test Utility 2', 100)
+        self.tiles = [self.tile1, self.tile2]
+
+        for tile in self.tiles:
+            self.board.tiles.append(tile)
+
+        self.board.last_roll = 10
+
+    def test_rent_one(self):
+        self.tile1.purchase(self.inout, self.player)
+
+        # Before being a part of a monopoly the rent is  4 * last roll
+        self.assertEqual(self.tile1.rent, 4 * self.board.last_roll)
+
+    def test_rent_all(self):
+        for tile in self.tiles:
+            tile.purchase(self.inout, self.player)
+
+        # When you own all of the utilities the rent is  10 * last roll
+        for tile in self.tiles:
+            self.assertEqual(tile.rent, 10 * self.board.last_roll)
+
+    def test_place_house(self):
+        with self.assertRaises(board.MonopolyUsageError):
+            self.tile1.place_house(self.inout, self.player)
+
+# XXX: Test the rest of the tiles
 
 class MonopolyBoardTest(monop_testing.MonopolyTestCase):
     def setUp(self):

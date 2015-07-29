@@ -169,8 +169,7 @@ class MonopolyBoardRRTile(MonopolyBoardPropertyTile):
 
     @property
     def rent(self):
-        if self.owner is None:
-            return 25
+        assert self.owner
 
         num_owned = 0
         for rr in self.monopoly_members:
@@ -180,28 +179,22 @@ class MonopolyBoardRRTile(MonopolyBoardPropertyTile):
         assert num_owned
         return 25 << (num_owned - 1)
 
-class MonopolyBoardUtiltyTile(MonopolyBoardPropertyTile):
+    def place_house(self, inout, player):
+        raise MonopolyUsageError("Can't place a house on a rail road")
+
+class MonopolyBoardUtilityTile(MonopolyBoardPropertyTile):
     def __init__(self, board, name, cost):
-        super(MonopolyBoardUtiltyTile, self).__init__(board, name, cost,
+        super(MonopolyBoardUtilityTile, self).__init__(board, name, cost,
             monopoly="Utility", rents=[])
 
     @property
     def rent(self):
-        if self.owner is None:
-            return 0
+        assert self.owner
 
         if self.part_of_monopoly:
             return 10 * self.board.last_roll
         else:
             return 4 * self.board.last_roll
-
-    @property
-    def part_of_monopoly(self):
-        return False
-
-    @property
-    def all_utilities(self):
-        return super(MonopolyBoardUtiltyTile, self).part_of_monopoly
 
     def print_rent(self, inout):
         if self.part_of_monopoly:
@@ -264,7 +257,7 @@ TILE_TABLE = {
     "LUX_TAX": MonopolyBoardLuxTaxTile,
     "RR":      MonopolyBoardRRTile,
     "CHANCE":  MonopolyBoardChanceTile,
-    "UTIL":    MonopolyBoardUtiltyTile,
+    "UTIL":    MonopolyBoardUtilityTile,
     "GOTO_J":  MonopolyBoardGotoJailTile,
     "JAIL":    MonopolyBoardJailTile
 }

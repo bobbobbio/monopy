@@ -1,0 +1,49 @@
+[
+   {"action": "FF",
+     "message": ">> GET OUT OF JAIL FREE <<\nKeep this card until needed or sold\n"},
+
+   {"action": "MR",
+    "message": "Advance to the nearest Railroad, and pay owner\nTwice the rental to which he is otherwise entitled.\nIf Railroad is unowned you may buy it from the bank\n"},
+
+   {"action": "MU",
+    "message": "Advance to the nearest Utility.\nIf unowned, you may buy it from the bank.\nIf owned, throw dice and pay oner a total of ten times\nthe amount thrown.\n"},
+
+   {"action": "MB3",
+    "message": "Go Back 3 Spaces\n"},
+
+   {"action": "MR",
+    "message": "Advance to the nearest Railroad, and pay owner\nTwice the rental to which he is otherwise entitled.\nIf Railroad is unowned you may buy it from the bank\n"},
+
+   {"action": "MJ",
+    "message": "    >> GO DIRECTLY TO JAIL <<\nDo not pass GO, Do not Collect $200.\n"},
+
+   {"action": "MF5",
+    "message": "Take a Ride on the Reading.\nIf you pass GO, collect $200.\n"},
+
+   {"action": "MF39",
+    "message": "Take a Walk on the Board Walk.\n    (Advance To Board Walk)\n"},
+
+   {"action": "MF24",
+    "message": "Advance to Illinois Ave.\n"},
+
+   {"action": "MF0",
+    "message": "Advance to Go\n"},
+
+   {"action": "MF11",
+    "message": "Advance to St. Charles Place.\nIf you pass GO, collect $200.\n"},
+
+   {"action": "TX",
+    "message": "Make general repairs on all of your Property.\nFor Each House pay $25.\nFor Each Hotel pay $100.\n"},
+
+   {"action": "-A50",
+    "message": "You have been elected Chairman of the Board.\nPay each player $50.\n"},
+
+   {"action": "--15",
+    "message": "Pay Poor Tax of $15\n"},
+
+   {"action": "++50",
+    "message": "Bank pays you Dividend of $50.\n"},
+
+   {"action": "++150",
+    "message": "Your Building and Loan Matures.\nCollect $150.\n"}
+]

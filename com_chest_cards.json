@@ -1,0 +1,49 @@
+[
+   {"action": "FF",
+    "message": ">> GET OUT OF JAIL FREE <<\nKeep this card until needed or sold\n"},
+
+   {"action": "++25",
+    "message": "Receive for Services $25.\n"},
+
+   {"action": "++200",
+    "message": "Bank Error in Your Favor.\nCollect $200.\n"},
+
+   {"action": "++20",
+    "message": "Income Tax Refund.\nCollect $20.\n"},
+
+   {"action": "--100",
+    "message": "Pay Hospital $100\n"},
+
+   {"action": "++100",
+    "message": "Life Insurance Matures.\nCollect $100\n"},
+
+   {"action": "++45",
+    "message": "From sale of Stock You get $45.\n"},
+
+   {"action": "TX",
+    "message": "You are Assessed for street repairs.\n\t$25 per House\n\t$100 per Hotel\n"},
+
+   {"action": "++100",
+    "message": "X-mas Fund Matures.\nCollect $100.\n"},
+
+   {"action": "++11",
+    "message": "You have won Second Prize in a Beauty Contest\nCollect $11\n"},
+
+   {"action": "MF0",
+    "message": "Advance to GO\n(Collect $200)\n"},
+
+   {"action": "++100",
+    "message": "You inherit $100\n"},
+
+   {"action": "--150",
+    "message": "Pay School Tax of $150.\n"},
+
+   {"action": "MJ",
+    "message": "\t\t>> GO TO JAIL <<\nGo Directly to Jail. Do not pass GO  Do not collect $200.\n"},
+
+   {"action": "+A50",
+    "message": "\t\t>> GRAND OPERA OPENING <<\nCollect $50 from each player for opening night seats.\n"},
+
+   {"action": "--50",
+    "message": "Doctor's Fee:  Pay $50.\n"}
+]
